@@ -1,0 +1,70 @@
+[gd_scene load_steps=4 format=3 uid="uid://bw2x3i1at3a2c"]
+
+[ext_resource type="Theme" uid="uid://bta37afsxmgt5" path="res://assets/themes/default_theme.tres" id="1_60ido"]
+[ext_resource type="Script" path="res://scripts/ui/control_ui.gd" id="2_77v2n"]
+[ext_resource type="PackedScene" uid="uid://becfukrllb44n" path="res://scenes/components/button_component.tscn" id="3_77v2n"]
+
+[node name="ControlUI" type="Control" node_paths=PackedStringArray("score_label", "time_label", "wave_label", "health_label", "objects_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_60ido")
+script = ExtResource("2_77v2n")
+score_label = NodePath("MarginContainer/HBoxContainer/VBoxContainer/ScoreLabel")
+time_label = NodePath("MarginContainer/HBoxContainer/VBoxContainer/TimeLabel")
+wave_label = NodePath("MarginContainer/HBoxContainer/VBoxContainer/WaveLabel")
+health_label = NodePath("MarginContainer/HBoxContainer/VBoxContainer/HealthLabel")
+objects_label = NodePath("MarginContainer/HBoxContainer/VBoxContainer/ObjectsLabel")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 43.0
+grow_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScoreLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Score: 0.0"
+
+[node name="TimeLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Time: 0.0"
+
+[node name="WaveLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wave: 0"
+
+[node name="HealthLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Health: 100.0"
+
+[node name="ObjectsLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+text = "N_Objects: 0"
+
+[node name="PauseButton" type="Button" parent="MarginContainer/HBoxContainer"]
+self_modulate = Color(0.50431, 0.00331775, 0.918055, 1)
+layout_mode = 2
+size_flags_vertical = 0
+text = "Pause"
+
+[node name="ButtonComponent" parent="MarginContainer/HBoxContainer/PauseButton" instance=ExtResource("3_77v2n")]
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/PauseButton" to="." method="_on_pause_button_pressed"]

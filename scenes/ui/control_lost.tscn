@@ -1,0 +1,190 @@
+[gd_scene load_steps=4 format=3 uid="uid://8frycy3fqpnn"]
+
+[ext_resource type="Theme" uid="uid://bta37afsxmgt5" path="res://assets/themes/default_theme.tres" id="1_fd3ys"]
+[ext_resource type="Script" path="res://scripts/ui/control_lost.gd" id="2_4qg4y"]
+[ext_resource type="PackedScene" uid="uid://becfukrllb44n" path="res://scenes/components/button_component.tscn" id="3_8ipht"]
+
+[node name="ControlLost" type="Control" node_paths=PackedStringArray("high_score_label", "total_playtime_label", "highest_wave_label", "score_label", "time_label", "wave_label", "new_high_score_label", "vbox_input", "name_input", "error_label", "submit_button", "submitted_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_fd3ys")
+script = ExtResource("2_4qg4y")
+high_score_label = NodePath("HBoxContainer/PanelContainerBest/MarginContainer/VBoxContainer/VBoxContainer/HighScoreLabel")
+total_playtime_label = NodePath("HBoxContainer/PanelContainerBest/MarginContainer/VBoxContainer/VBoxContainer/TotalPlaytimeLabel")
+highest_wave_label = NodePath("HBoxContainer/PanelContainerBest/MarginContainer/VBoxContainer/VBoxContainer/HighestWaveLabel")
+score_label = NodePath("HBoxContainer/PanelContainerMain/MarginContainer/VBoxContainer/VBoxContainer/ScoreLabel")
+time_label = NodePath("HBoxContainer/PanelContainerMain/MarginContainer/VBoxContainer/VBoxContainer/TimeLabel")
+wave_label = NodePath("HBoxContainer/PanelContainerMain/MarginContainer/VBoxContainer/VBoxContainer/WaveLabel")
+new_high_score_label = NodePath("HBoxContainer/PanelContainerMain/MarginContainer/VBoxContainer/NewHighScoreLabel")
+vbox_input = NodePath("HBoxContainer/PanelContainerSubmit/MarginContainer/VBoxScoreSubmit/VBoxInput")
+name_input = NodePath("HBoxContainer/PanelContainerSubmit/MarginContainer/VBoxScoreSubmit/VBoxInput/NameInput")
+error_label = NodePath("HBoxContainer/PanelContainerSubmit/MarginContainer/VBoxScoreSubmit/VBoxInput/ErrorLabel")
+submit_button = NodePath("HBoxContainer/PanelContainerSubmit/MarginContainer/VBoxScoreSubmit/VBoxInput/SubmitButton")
+submitted_label = NodePath("HBoxContainer/PanelContainerSubmit/MarginContainer/VBoxScoreSubmit/SubmittedLabel")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="PanelContainerBest" type="PanelContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(90, 80)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/PanelContainerBest"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainerBest/MarginContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="HBoxContainer/PanelContainerBest/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "All Time"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainerBest/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HighScoreLabel" type="Label" parent="HBoxContainer/PanelContainerBest/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "High Score: 0"
+
+[node name="TotalPlaytimeLabel" type="Label" parent="HBoxContainer/PanelContainerBest/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Total Playtime: 0.0s"
+
+[node name="HighestWaveLabel" type="Label" parent="HBoxContainer/PanelContainerBest/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Highest Wave: 0"
+
+[node name="PanelContainerMain" type="PanelContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(110, 130)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/PanelContainerMain"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainerMain/MarginContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="HBoxContainer/PanelContainerMain/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.1
+theme_override_font_sizes/font_size = 12
+text = "YOU LOST!"
+horizontal_alignment = 1
+
+[node name="NewHighScoreLabel" type="Label" parent="HBoxContainer/PanelContainerMain/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "New High Score!"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainerMain/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="HBoxContainer/PanelContainerMain/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Score: 0"
+
+[node name="TimeLabel" type="Label" parent="HBoxContainer/PanelContainerMain/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Playtime: 0.00s"
+
+[node name="WaveLabel" type="Label" parent="HBoxContainer/PanelContainerMain/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Wave: 0"
+
+[node name="TryAgainButton" type="Button" parent="HBoxContainer/PanelContainerMain/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Try Again"
+
+[node name="ButtonComponent" parent="HBoxContainer/PanelContainerMain/MarginContainer/VBoxContainer/TryAgainButton" instance=ExtResource("3_8ipht")]
+
+[node name="MenuButton" type="Button" parent="HBoxContainer/PanelContainerMain/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Menu"
+
+[node name="ButtonComponent" parent="HBoxContainer/PanelContainerMain/MarginContainer/VBoxContainer/MenuButton" instance=ExtResource("3_8ipht")]
+
+[node name="PanelContainerSubmit" type="PanelContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(90, 110)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/PanelContainerSubmit"]
+layout_mode = 2
+
+[node name="VBoxScoreSubmit" type="VBoxContainer" parent="HBoxContainer/PanelContainerSubmit/MarginContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="HBoxContainer/PanelContainerSubmit/MarginContainer/VBoxScoreSubmit"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Competition"
+horizontal_alignment = 1
+
+[node name="VBoxInput" type="VBoxContainer" parent="HBoxContainer/PanelContainerSubmit/MarginContainer/VBoxScoreSubmit"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="NameInput" type="LineEdit" parent="HBoxContainer/PanelContainerSubmit/MarginContainer/VBoxScoreSubmit/VBoxInput"]
+layout_mode = 2
+placeholder_text = "Enter your name..."
+max_length = 8
+
+[node name="ErrorLabel" type="Label" parent="HBoxContainer/PanelContainerSubmit/MarginContainer/VBoxScoreSubmit/VBoxInput"]
+custom_minimum_size = Vector2(80, 16)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
+theme_override_font_sizes/font_size = 4
+text = "Your name should contain at least 3 letters"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="SubmitButton" type="Button" parent="HBoxContainer/PanelContainerSubmit/MarginContainer/VBoxScoreSubmit/VBoxInput"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+disabled = true
+text = "Submit Score"
+
+[node name="ButtonComponent" parent="HBoxContainer/PanelContainerSubmit/MarginContainer/VBoxScoreSubmit/VBoxInput/SubmitButton" instance=ExtResource("3_8ipht")]
+
+[node name="SubmittedLabel" type="Label" parent="HBoxContainer/PanelContainerSubmit/MarginContainer/VBoxScoreSubmit"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 6
+text = "Score Submitted!"
+horizontal_alignment = 1
+
+[node name="LeaderboardButton" type="Button" parent="HBoxContainer/PanelContainerSubmit/MarginContainer/VBoxScoreSubmit"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Leaderboard"
+
+[node name="ButtonComponent" parent="HBoxContainer/PanelContainerSubmit/MarginContainer/VBoxScoreSubmit/LeaderboardButton" instance=ExtResource("3_8ipht")]
+
+[connection signal="pressed" from="HBoxContainer/PanelContainerMain/MarginContainer/VBoxContainer/TryAgainButton" to="." method="_on_try_again_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/PanelContainerMain/MarginContainer/VBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="text_changed" from="HBoxContainer/PanelContainerSubmit/MarginContainer/VBoxScoreSubmit/VBoxInput/NameInput" to="." method="_on_name_input_text_changed"]
+[connection signal="pressed" from="HBoxContainer/PanelContainerSubmit/MarginContainer/VBoxScoreSubmit/VBoxInput/SubmitButton" to="." method="_on_submit_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/PanelContainerSubmit/MarginContainer/VBoxScoreSubmit/LeaderboardButton" to="." method="_on_leaderboard_button_pressed"]

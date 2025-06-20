@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://grwxsro6idxm"]
+
+[ext_resource type="Theme" uid="uid://bta37afsxmgt5" path="res://assets/themes/default_theme.tres" id="1_wwukw"]
+[ext_resource type="PackedScene" uid="uid://becfukrllb44n" path="res://scenes/components/button_component.tscn" id="2_5hysc"]
+[ext_resource type="Script" path="res://scripts/ui/input_button.gd" id="2_lbgna"]
+
+[node name="InputButton" type="Button" node_paths=PackedStringArray("action_label", "input_label")]
+custom_minimum_size = Vector2(0, 16)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 8.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme = ExtResource("1_wwukw")
+script = ExtResource("2_lbgna")
+action_label = NodePath("MarginContainer/ActionLabel")
+input_label = NodePath("MarginContainer/InputLabel")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ActionLabel" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Action Name"
+
+[node name="InputLabel" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Input Key"
+
+[node name="ButtonComponent" parent="." instance=ExtResource("2_5hysc")]

@@ -1,0 +1,97 @@
+[gd_scene load_steps=3 format=3 uid="uid://dkige4hm766mq"]
+
+[ext_resource type="Theme" uid="uid://bta37afsxmgt5" path="res://assets/themes/default_theme.tres" id="1_yxfbr"]
+[ext_resource type="Script" path="res://scripts/ui/leaderboard.gd" id="2_5icvg"]
+
+[node name="Leaderboard" type="CanvasLayer" node_paths=PackedStringArray("grid", "loading_label", "empty_label")]
+layer = 2
+script = ExtResource("2_5icvg")
+grid = NodePath("Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/GridContainer")
+loading_label = NodePath("Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/LoadingLabel")
+empty_label = NodePath("Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/EmptyLabel")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_yxfbr")
+
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+custom_minimum_size = Vector2(140, 160)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -68.5
+offset_top = -39.5
+offset_right = 68.5
+offset_bottom = 39.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="Control/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Leaderboard"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 3
+
+[node name="RankLabel" type="Label" parent="Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Rank"
+
+[node name="NameLabel" type="Label" parent="Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Name"
+
+[node name="ScoreLabel" type="Label" parent="Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Score"
+
+[node name="LoadingLabel" type="Label" parent="Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 6
+text = "Loading..."
+horizontal_alignment = 1
+
+[node name="EmptyLabel" type="Label" parent="Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 6
+text = "No Scores Yet!"
+horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="Control/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Close"
+
+[connection signal="pressed" from="Control/PanelContainer/MarginContainer/VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

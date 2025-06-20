@@ -1,0 +1,128 @@
+[gd_scene load_steps=15 format=3 uid="uid://d0bf7ao8vqu8u"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="PackedScene" uid="uid://cl8nbaeskvmoi" path="res://scenes/bullet.tscn" id="2_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://um5qv2xwd7li" path="res://assets/sprites/player ship sprite.png" id="3_qlg0r"]
+[ext_resource type="AudioStream" uid="uid://bs4bt82x8ajlh" path="res://assets/sfx/shoot sound.wav" id="4_dqkch"]
+[ext_resource type="AudioStream" uid="uid://bhd5cx0hcs40w" path="res://assets/sfx/explosion player sound.wav" id="5_qlg0r"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g2els"]
+radius = 6.0
+
+[sub_resource type="Animation" id="Animation_tuyoq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qlg0r"]
+resource_name = "hit"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fjrip"]
+_data = {
+&"RESET": SubResource("Animation_tuyoq"),
+&"hit": SubResource("Animation_qlg0r")
+}
+
+[sub_resource type="Curve" id="Curve_qlg0r"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.797101, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_qlg0r"]
+curve = SubResource("Curve_qlg0r")
+
+[sub_resource type="Gradient" id="Gradient_qlg0r"]
+offsets = PackedFloat32Array(0, 0.745455)
+colors = PackedColorArray(1, 0.266667, 0, 1, 0.419608, 0.905882, 0.937255, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tuyoq"]
+gradient = SubResource("Gradient_qlg0r")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fjrip"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, 1, 0)
+spread = 15.0
+initial_velocity_min = 25.0
+initial_velocity_max = 50.0
+angular_velocity_min = -90.0
+angular_velocity_max = 90.0
+gravity = Vector3(0, 98, 0)
+scale_min = 1.2
+scale_max = 1.8
+color_ramp = SubResource("GradientTexture1D_tuyoq")
+alpha_curve = SubResource("CurveTexture_qlg0r")
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("fire_audio", "fire_point", "hit_audio", "animator") groups=["Player"]]
+script = ExtResource("1_g2els")
+bullet = ExtResource("2_qhqgy")
+fire_audio = NodePath("FireAudio")
+fire_point = NodePath("FirePoint")
+hit_audio = NodePath("HitAudio")
+animator = NodePath("AnimationPlayer")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_qlg0r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_g2els")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_g2els")
+
+[node name="FireAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_dqkch")
+bus = &"SFX"
+
+[node name="HitAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_qlg0r")
+bus = &"SFX"
+
+[node name="FirePoint" type="Node2D" parent="."]
+position = Vector2(0, -8)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_fjrip")
+}
+
+[node name="EngineParticlesLeft" type="GPUParticles2D" parent="."]
+position = Vector2(-5, 7)
+lifetime = 0.6
+process_material = SubResource("ParticleProcessMaterial_fjrip")
+
+[node name="EngineParticlesRight" type="GPUParticles2D" parent="."]
+position = Vector2(5, 7)
+lifetime = 0.6
+process_material = SubResource("ParticleProcessMaterial_fjrip")
+
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]

@@ -1,0 +1,128 @@
+[gd_scene load_steps=13 format=3 uid="uid://0gh4lsvut4xv"]
+
+[ext_resource type="Script" path="res://scripts/wave_manager.gd" id="1_l6vc6"]
+[ext_resource type="PackedScene" uid="uid://bbxg3p5s8a85i" path="res://scenes/obstacles/asteroids/big_asteroid.tscn" id="2_7ive5"]
+[ext_resource type="PackedScene" uid="uid://eowv2hu3dc6w" path="res://scenes/obstacles/asteroids/medium_asteroid.tscn" id="3_oc717"]
+[ext_resource type="PackedScene" uid="uid://c7txbjmit5tt7" path="res://scenes/obstacles/asteroids/small_asteroid.tscn" id="4_3bu4i"]
+[ext_resource type="PackedScene" uid="uid://b530utlrdsopt" path="res://scenes/enemies/enemy_ship.tscn" id="5_oc717"]
+[ext_resource type="PackedScene" uid="uid://d1gr3nokh67ur" path="res://scenes/power_ups/one_more_bullet.tscn" id="6_3bu4i"]
+[ext_resource type="PackedScene" uid="uid://ysyf7o3cjujo" path="res://scenes/obstacles/satellite.tscn" id="7_h3n7r"]
+[ext_resource type="PackedScene" uid="uid://bawivq8k5qwhk" path="res://scenes/power_ups/faster_fire_speed.tscn" id="8_x3ylx"]
+[ext_resource type="Theme" uid="uid://bta37afsxmgt5" path="res://assets/themes/default_theme.tres" id="9_ountb"]
+
+[sub_resource type="Animation" id="Animation_r5yun"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/MarginContainer/WaveLabel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/MarginContainer/WaveLabel:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ountb"]
+resource_name = "next_wave"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/MarginContainer/WaveLabel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/MarginContainer/WaveLabel:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(-2, -2, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hxgtx"]
+_data = {
+&"RESET": SubResource("Animation_r5yun"),
+&"next_wave": SubResource("Animation_ountb")
+}
+
+[node name="WaveManager" type="Node2D" node_paths=PackedStringArray("spawn_timer", "intermission_timer", "wave_label", "animator")]
+script = ExtResource("1_l6vc6")
+obstacles = Array[PackedScene]([ExtResource("4_3bu4i"), ExtResource("3_oc717"), ExtResource("2_7ive5"), ExtResource("7_h3n7r")])
+enemies = Array[PackedScene]([ExtResource("5_oc717")])
+power_ups = Array[PackedScene]([ExtResource("6_3bu4i"), ExtResource("8_x3ylx")])
+spawn_timer = NodePath("SpawnTimer")
+intermission_timer = NodePath("IntermissionTimer")
+wave_label = NodePath("CanvasLayer/Control/MarginContainer/WaveLabel")
+animator = NodePath("CanvasLayer/AnimationPlayer")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[node name="IntermissionTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("9_ountb")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -19.5
+offset_right = 19.5
+offset_bottom = 17.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="WaveLabel" type="Label" parent="CanvasLayer/Control/MarginContainer"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Wave 0"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
+libraries = {
+&"": SubResource("AnimationLibrary_hxgtx")
+}
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="IntermissionTimer" to="." method="_on_intermission_timer_timeout"]

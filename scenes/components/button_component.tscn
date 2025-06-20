@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://becfukrllb44n"]
+
+[ext_resource type="Script" path="res://scripts/components/button_component.gd" id="1_2768r"]
+[ext_resource type="AudioStream" uid="uid://pxhexbnb2n71" path="res://assets/sfx/ui/hover sound.wav" id="1_ywyfm"]
+[ext_resource type="AudioStream" uid="uid://ccmnaxvhhfu5y" path="res://assets/sfx/ui/press sound.wav" id="3_fopri"]
+
+[node name="ButtonComponent" type="Node" node_paths=PackedStringArray("hover_audio", "press_audio")]
+script = ExtResource("1_2768r")
+hover_audio = NodePath("HoverAudio")
+press_audio = NodePath("PressAudio")
+
+[node name="HoverAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_ywyfm")
+bus = &"SFX"
+
+[node name="PressAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_fopri")
+bus = &"SFX"

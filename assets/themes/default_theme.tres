@@ -1,0 +1,19 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://bta37afsxmgt5"]
+
+[ext_resource type="FontFile" uid="uid://d0hx4lqr8yhnw" path="res://assets/fonts/pixolletta8px/Pixolletta8px.ttf" id="1_sx0q5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sx0q5"]
+bg_color = Color(0.180392, 0.0392157, 0.188235, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[resource]
+default_font = ExtResource("1_sx0q5")
+default_font_size = 8
+MarginContainer/constants/margin_bottom = 4
+MarginContainer/constants/margin_left = 4
+MarginContainer/constants/margin_right = 4
+MarginContainer/constants/margin_top = 4
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_sx0q5")

@@ -1,0 +1,78 @@
+[gd_scene load_steps=4 format=3 uid="uid://cg0s6ehbns1ai"]
+
+[ext_resource type="Theme" uid="uid://bta37afsxmgt5" path="res://assets/themes/default_theme.tres" id="1_a4dw3"]
+[ext_resource type="Script" path="res://scripts/ui/statistics.gd" id="2_0v0g4"]
+[ext_resource type="PackedScene" uid="uid://becfukrllb44n" path="res://scenes/components/button_component.tscn" id="3_luik7"]
+
+[node name="Statistics" type="Control" node_paths=PackedStringArray("high_score_label", "total_playtime_label", "highest_wave_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_a4dw3")
+script = ExtResource("2_0v0g4")
+high_score_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HighScoreLabel")
+total_playtime_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/TotalPlaytimeLabel")
+highest_wave_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HighestWaveLabel")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -67.0
+offset_top = -60.0
+offset_right = 67.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Statistics"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="HighScoreLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "High Score: 0"
+
+[node name="TotalPlaytimeLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Total Playtime: 0.00s"
+
+[node name="HighestWaveLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Highest Wave: 0"
+
+[node name="ResetButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+text = "Reset Stats"
+
+[node name="ButtonComponent" parent="PanelContainer/MarginContainer/VBoxContainer/ResetButton" instance=ExtResource("3_luik7")]
+
+[node name="ReturnButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Return"
+
+[node name="ButtonComponent" parent="PanelContainer/MarginContainer/VBoxContainer/ReturnButton" instance=ExtResource("3_luik7")]
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/ResetButton" to="." method="_on_reset_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/ReturnButton" to="." method="_on_return_button_pressed"]

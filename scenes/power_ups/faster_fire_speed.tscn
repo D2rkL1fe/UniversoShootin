@@ -1,0 +1,160 @@
+[gd_scene load_steps=10 format=3 uid="uid://bawivq8k5qwhk"]
+
+[ext_resource type="Script" path="res://scripts/power_ups/faster_fire_speed.gd" id="1_pl0xu"]
+[ext_resource type="PackedScene" uid="uid://ciljr7l7jp6g7" path="res://scenes/components/velocity_component.tscn" id="2_6k82w"]
+[ext_resource type="Texture2D" uid="uid://b4bjucmy6jxno" path="res://assets/sprites/power_ups/power up - plus one bullet.png" id="3_ajhvd"]
+[ext_resource type="AudioStream" uid="uid://bcurqomgmpdxu" path="res://assets/sfx/power_ups/power up sound.wav" id="4_hi7y4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8v51l"]
+radius = 8.0
+
+[sub_resource type="Animation" id="Animation_a6aoh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hurtbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollectAudio:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_nhk3h"]
+resource_name = "collect"
+length = 0.2
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hurtbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(2, 0.5, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 1.5), Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CollectAudio:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_8v51l"]
+resource_name = "idle"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(-2, -2, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nhk3h"]
+_data = {
+&"RESET": SubResource("Animation_a6aoh"),
+&"collect": SubResource("Animation_nhk3h"),
+&"idle": SubResource("Animation_8v51l")
+}
+
+[node name="FasterFireSpeed" type="CharacterBody2D" node_paths=PackedStringArray("animator")]
+script = ExtResource("1_pl0xu")
+animator = NodePath("AnimationPlayer")
+
+[node name="VelocityComponent" parent="." node_paths=PackedStringArray("body") instance=ExtResource("2_6k82w")]
+body = NodePath("..")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0.941667, 0.3, 1)
+texture = ExtResource("3_ajhvd")
+
+[node name="PointLight2D" type="PointLight2D" parent="Sprite2D"]
+scale = Vector2(0.997356, 0.997356)
+energy = 0.25
+texture = ExtResource("3_ajhvd")
+texture_scale = 2.0
+
+[node name="Hurtbox" type="Area2D" parent="." groups=["PowerUp"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_8v51l")
+
+[node name="CollectAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_hi7y4")
+bus = &"SFX"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_nhk3h")
+}
+autoplay = "idle"
+
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]

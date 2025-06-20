@@ -1,0 +1,155 @@
+[gd_scene load_steps=5 format=3 uid="uid://cwqxqdu8euawi"]
+
+[ext_resource type="Theme" uid="uid://bta37afsxmgt5" path="res://assets/themes/default_theme.tres" id="1_8wfqe"]
+[ext_resource type="Script" uid="uid://cni7g38iw3g3f" path="res://scripts/ui/settings.gd" id="2_7pacj"]
+[ext_resource type="PackedScene" uid="uid://becfukrllb44n" path="res://scenes/components/button_component.tscn" id="3_h175o"]
+[ext_resource type="PackedScene" uid="uid://grwxsro6idxm" path="res://scenes/ui/input_button.tscn" id="4_ptynm"]
+
+[node name="Settings" type="Control" node_paths=PackedStringArray("check_sfx", "check_music", "slider_sfx", "slider_music", "action_list")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_8wfqe")
+script = ExtResource("2_7pacj")
+check_sfx = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxSettings/HBoxContainer/VBoxCheck/CheckSFX")
+check_music = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxSettings/HBoxContainer/VBoxCheck/CheckMusic")
+slider_sfx = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxSettings/HBoxContainer/VBoxSlider/SliderSFX")
+slider_music = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxSettings/HBoxContainer/VBoxSlider/SliderMusic")
+input_button = ExtResource("4_ptynm")
+action_list = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxInput/ActionList")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.0
+offset_top = -93.0
+offset_right = 70.0
+offset_bottom = 94.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxSettings" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxSettings"]
+layout_mode = 2
+text = "Settings"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxSettings"]
+layout_mode = 2
+
+[node name="VBoxCheck" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxSettings/HBoxContainer"]
+layout_mode = 2
+
+[node name="CheckSFX" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxSettings/HBoxContainer/VBoxCheck"]
+layout_mode = 2
+size_flags_vertical = 3
+button_pressed = true
+
+[node name="ButtonComponent" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxSettings/HBoxContainer/VBoxCheck/CheckSFX" instance=ExtResource("3_h175o")]
+
+[node name="CheckMusic" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxSettings/HBoxContainer/VBoxCheck"]
+layout_mode = 2
+size_flags_vertical = 3
+button_pressed = true
+
+[node name="ButtonComponent" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxSettings/HBoxContainer/VBoxCheck/CheckMusic" instance=ExtResource("3_h175o")]
+
+[node name="VBoxType" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxSettings/HBoxContainer"]
+layout_mode = 2
+
+[node name="SFXLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxSettings/HBoxContainer/VBoxType"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "SFX"
+
+[node name="MusicLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxSettings/HBoxContainer/VBoxType"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Music"
+
+[node name="VBoxSlider" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxSettings/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SliderSFX" type="HSlider" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxSettings/HBoxContainer/VBoxSlider"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+min_value = -60.0
+max_value = 15.0
+
+[node name="SliderMusic" type="HSlider" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxSettings/HBoxContainer/VBoxSlider"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+min_value = -60.0
+max_value = 15.0
+
+[node name="VSeparator" type="VSeparator" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxSettings/HBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="HSeparator1" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="VBoxInput" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TitleLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxInput"]
+layout_mode = 2
+text = "Keybindings"
+horizontal_alignment = 1
+
+[node name="ActionList" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxInput"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="InputButton" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxInput/ActionList" instance=ExtResource("4_ptynm")]
+layout_mode = 2
+size_flags_horizontal = 1
+
+[node name="ResetButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxInput"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Reset To Default"
+
+[node name="ButtonComponent" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxInput/ResetButton" instance=ExtResource("3_h175o")]
+
+[node name="HSeparator2" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="ReturnButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Return"
+
+[node name="ButtonComponent" parent="PanelContainer/MarginContainer/VBoxContainer/ReturnButton" instance=ExtResource("3_h175o")]
+
+[connection signal="toggled" from="PanelContainer/MarginContainer/VBoxContainer/VBoxSettings/HBoxContainer/VBoxCheck/CheckSFX" to="." method="_on_check_sfx_toggled"]
+[connection signal="toggled" from="PanelContainer/MarginContainer/VBoxContainer/VBoxSettings/HBoxContainer/VBoxCheck/CheckMusic" to="." method="_on_check_music_toggled"]
+[connection signal="value_changed" from="PanelContainer/MarginContainer/VBoxContainer/VBoxSettings/HBoxContainer/VBoxSlider/SliderSFX" to="." method="_on_slider_sfx_value_changed"]
+[connection signal="value_changed" from="PanelContainer/MarginContainer/VBoxContainer/VBoxSettings/HBoxContainer/VBoxSlider/SliderMusic" to="." method="_on_slider_music_value_changed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/VBoxInput/ResetButton" to="." method="_on_reset_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/ReturnButton" to="." method="_on_return_button_pressed"]

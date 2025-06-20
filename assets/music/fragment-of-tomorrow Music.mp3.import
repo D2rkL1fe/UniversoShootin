@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://hd4bnxf46tbx"
+path="res://.godot/imported/fragment-of-tomorrow Music.mp3-9e44f582fdeaec85b1be14233f57b08d.mp3str"
+
+[deps]
+
+source_file="res://assets/music/fragment-of-tomorrow Music.mp3"
+dest_files=["res://.godot/imported/fragment-of-tomorrow Music.mp3-9e44f582fdeaec85b1be14233f57b08d.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4
