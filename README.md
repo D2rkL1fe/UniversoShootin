@@ -1,9 +1,9 @@
-# Note
+# Note 🐒
 You can play this game on [itch.io](https://d2rkl1fe.itch.io/universo-shootin).
 
 
 
-# About
+# 🚀 About 🚀
 Small restro-style arcade 2d space shooter game!
 
 
@@ -20,7 +20,7 @@ Also there is a leaderboard where you can compete who is the best!
 
 
 
-# Controls
+## Controls
 A/D - move left/right
 
 SPACE - shoot
@@ -31,26 +31,26 @@ SPACE - shoot
 
 
 
-# Resources
+## Resources
 I had used music ["Fragment of Tomorrow -アスノカケラ-" from Pixabay by Space_Cat](https://pixabay.com/music/video-games-fragment-of-tomorrow-131881/)
 
 
 
-# Installation
+## Installation 📓
 
 
-## Prerequisites
+### Prerequisites
 You should have Godot game engine installed 
 
 
-## 1. Clone repo
+### 1. Clone repo
 > locally on your machine
 
 
-## 2. Open Godot
+### 2. Open Godot
 > who could have thought 
 
 
-## 3. Open it with Godot
+### 3. Open it with Godot
 > click on import button
 > locate and select file named: project.godot
